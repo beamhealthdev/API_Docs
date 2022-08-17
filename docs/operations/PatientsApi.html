@@ -1,0 +1,200 @@
+<div class="main-content">
+  <h2><a name=""></a></h2>
+  <p>This is the  API</p>
+
+  <h2><a name="createNewPatient"></a>createNewPatient</h2>
+  <hr>
+  <p></p>
+  <p>Create a new patient in the system </p>
+  <h3 class="section">URL</h3>
+  <code>https://virtserver.swaggerhub.com/Beam_Health/Beam_API/1.0.0/v0/practices/{practice_id}/staff/{staff_id}/patients/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>POST</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      
+      
+      
+      <span class="param-in">Body: </span>
+      <span class="param-name">body</span>
+      <span class="param-type">Patient(Patient)</span>
+      
+      <p class="param-description">Patient Info</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">staff_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff member</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">practice_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff practice</p>
+	  </li>
+  </ul>
+  <h2><a name="deletePatient"></a>deletePatient</h2>
+  <hr>
+  <p></p>
+  <p>Deletes an existing patient in the system </p>
+  <h3 class="section">URL</h3>
+  <code>https://virtserver.swaggerhub.com/Beam_Health/Beam_API/1.0.0/v0/practices/{practice_id}/staff/{staff_id}/patients/{patient_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>DELETE</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">staff_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff member</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">practice_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff practice</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">patient_id</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">Unique full ID of the patient</p>
+	  </li>
+  </ul>
+  <h2><a name="getPatientByID"></a>getPatientByID</h2>
+  <hr>
+  <p></p>
+  <p>By passing in the appropriate options, you can search for available patients in the system </p>
+  <h3 class="section">URL</h3>
+  <code>https://virtserver.swaggerhub.com/Beam_Health/Beam_API/1.0.0/v0/practices/{practice_id}/staff/{staff_id}/patients/{patient_id}/fetch</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>GET</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">patient_id</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">Unique short ID of the patient</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">staff_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff member</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">practice_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff practice</p>
+	  </li>
+  </ul>
+  <h2><a name="updatePatient"></a>updatePatient</h2>
+  <hr>
+  <p></p>
+  <p>Updates an existing patient in the system </p>
+  <h3 class="section">URL</h3>
+  <code>https://virtserver.swaggerhub.com/Beam_Health/Beam_API/1.0.0/v0/practices/{practice_id}/staff/{staff_id}/patients/{patient_id}/</code>
+  <h3 class="section">HTTP Method</h3>
+  <code>PUT</code>
+  <h3 class="section">Response Type</h3>
+  <div class="model" data-model=""><a href=""></a></div>
+  <h3 class="section">Parameters</h3>
+  <ul>
+	  <li class="parameter">
+      
+      
+      
+      
+      <span class="param-in">Body: </span>
+      <span class="param-name">body</span>
+      <span class="param-type">Patient(Patient)</span>
+      
+      <p class="param-description">Updated patient info</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">staff_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff member</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">practice_id</span>
+      <span class="param-type">Integer</span>
+      
+      <p class="param-description">Unique ID of the staff practice</p>
+	  </li>
+	  <li class="parameter">
+      
+      
+      <span class="param-in">Path: </span>
+      
+      
+      <span class="param-name">patient_id</span>
+      <span class="param-type">String</span>
+      
+      <p class="param-description">Unique short ID of the patient</p>
+	  </li>
+  </ul>
+</div>
