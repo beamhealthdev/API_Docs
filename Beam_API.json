@@ -1,0 +1,498 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Beam API",
+    "description": "Beam API",
+    "contact": {
+      "email": "aditya@beamhealthgroup.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://beam-aditya.ngrok.io",
+      "description": "Local"
+    },
+    {
+      "url": "https://api.beam.health",
+      "description": "Stage"
+    },
+    {
+      "url": "https://providers.beam.health",
+      "description": "Production"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/Beam_Health/Beam_API/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authorization",
+      "description": "Fetching the access token"
+    },
+    {
+      "name": "Patients",
+      "description": "Operations relating to patient data"
+    },
+    {
+      "name": "Encounters",
+      "description": "Operations relating to consult data"
+    }
+  ],
+  "paths": {
+    "/api-token-auth/": {
+      "post": {
+        "tags": [
+          "Authorization"
+        ],
+        "summary": "fetches access token",
+        "operationId": "fetchToken",
+        "requestBody": {
+          "description": "Login Info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginAuth"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "response.token"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/v1/patients/": {
+      "get": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "fetches all patients of staff member",
+        "description": "Returns all patient data for a staff member.\n",
+        "operationId": "getPatients",
+        "parameters": [
+          {
+            "name": "staff_id",
+            "in": "query",
+            "description": "Unique ID of the staff member",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "practice_id",
+            "in": "query",
+            "description": "Unique ID of the staff practice",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number of response (10 responses per page, leave empty for page 1)",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Patients"
+        ],
+        "summary": "creates a patient",
+        "description": "Create a new patient in the system\n",
+        "operationId": "createNewPatient",
+        "parameters": [
+          {
+            "name": "staff_id",
+            "in": "query",
+            "description": "Unique ID of the staff member",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "practice_id",
+            "in": "query",
+            "description": "Unique ID of the staff practice",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Patient Info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Patient"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "response"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/v0/patient-soap-notes/": {
+      "get": {
+        "tags": [
+          "Encounters"
+        ],
+        "summary": "gets notes for an encounter",
+        "description": "Gets notes for a specific encounter\n",
+        "operationId": "fetchCurrentSOAPNotes",
+        "parameters": [
+          {
+            "name": "encounter_id",
+            "in": "query",
+            "description": "Unique ID of the encounter",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Encounters"
+        ],
+        "summary": "posts notes for an encounter",
+        "description": "Updates notes for a specific encounter\n",
+        "operationId": "updateSOAPNotes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Unique ID of the encounter",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "subjective",
+            "in": "query",
+            "description": "Subjective notes of the encounter",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objective",
+            "in": "query",
+            "description": "Objective notes of the encounter",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assessment",
+            "in": "query",
+            "description": "Assessment notes of the encounter",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "plan",
+            "in": "query",
+            "description": "Plan notes of the encounter",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginAuth": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password"
+          }
+        }
+      },
+      "Patient": {
+        "required": [
+          "email",
+          "first_name",
+          "last_name"
+        ],
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Appleseed"
+          },
+          "email": {
+            "type": "string",
+            "example": "j_appleseed@beamhealthgroup.com"
+          },
+          "phone_number": {
+            "type": "string",
+            "example": "1234567890"
+          },
+          "gender": {
+            "type": "string",
+            "example": "M"
+          },
+          "date_of_birth": {
+            "type": "string",
+            "example": "1988-08-08"
+          },
+          "address_line1": {
+            "type": "string",
+            "example": "100 Main Street"
+          },
+          "address_line2": {
+            "type": "string",
+            "example": "Apartment 3"
+          },
+          "city": {
+            "type": "string",
+            "example": "New York City"
+          },
+          "state": {
+            "type": "string",
+            "example": "NY"
+          },
+          "zip_code": {
+            "type": "string",
+            "example": "60200"
+          }
+        }
+      },
+      "Staff": {
+        "required": [
+          "first_name",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "uuid",
+            "example": 1
+          },
+          "first_name": {
+            "type": "string",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Appleseed"
+          },
+          "phone": {
+            "type": "string",
+            "example": "408-867-5309"
+          }
+        }
+      },
+      "Encounter": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "uuid",
+            "example": 1
+          },
+          "encounter_time": {
+            "type": "string",
+            "example": "2022-02-02 10:00:00"
+          },
+          "completed_at": {
+            "type": "string",
+            "example": "2022-02-02 11:00:00"
+          },
+          "amount_charged": {
+            "type": "integer",
+            "example": 45
+          },
+          "conversation": {
+            "$ref": "#/components/schemas/Conversation"
+          },
+          "subjective_notes": {
+            "type": "string",
+            "example": "Subjective Notes"
+          },
+          "objective_notes": {
+            "type": "string",
+            "example": "Objective Notes"
+          },
+          "assessment_notes": {
+            "type": "string",
+            "example": "Assessment Notes"
+          },
+          "plan_notes": {
+            "type": "string",
+            "example": "Plan Notes"
+          },
+          "physician_rating": {
+            "type": "integer",
+            "example": 5
+          },
+          "patient_rating": {
+            "type": "integer",
+            "example": 3
+          }
+        }
+      },
+      "Conversation": {
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "uuid",
+            "example": 1
+          },
+          "staff_member": {
+            "$ref": "#/components/schemas/Staff"
+          },
+          "patient": {
+            "$ref": "#/components/schemas/Patient"
+          }
+        }
+      },
+      "SOAP_Notes": {
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "uuid",
+            "example": 1
+          },
+          "subjective": {
+            "type": "string"
+          },
+          "objective": {
+            "type": "string"
+          },
+          "assessment": {
+            "type": "string"
+          },
+          "plan": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
