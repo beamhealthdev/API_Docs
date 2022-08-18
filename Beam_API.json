@@ -78,7 +78,7 @@
         "tags": [
           "Patients"
         ],
-        "summary": "fetches all patients of staff member",
+        "summary": "fetches all patients of a staff member or a specific patient by email",
         "description": "Returns all patient data for a staff member.\n",
         "operationId": "getPatients",
         "parameters": [
@@ -114,6 +114,17 @@
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email of specific patient",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -130,7 +141,7 @@
           }
         ]
       },
-      "post": {
+      "put": {
         "tags": [
           "Patients"
         ],
@@ -185,29 +196,60 @@
             "bearerAuth": []
           }
         ]
-      }
-    },
-    "/v0/patient-soap-notes/": {
-      "get": {
+      },
+      "post": {
         "tags": [
-          "Encounters"
+          "Patients"
         ],
-        "summary": "gets notes for an encounter",
-        "description": "Gets notes for a specific encounter\n",
-        "operationId": "fetchCurrentSOAPNotes",
+        "summary": "updates an existing patient",
+        "description": "Updates an existing patient in the system by looking up their email\n",
+        "operationId": "updatePatient",
         "parameters": [
           {
-            "name": "encounter_id",
+            "name": "staff_id",
             "in": "query",
-            "description": "Unique ID of the encounter",
+            "description": "Unique ID of the staff member",
             "required": true,
             "style": "form",
             "explode": true,
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "name": "practice_id",
+            "in": "query",
+            "description": "Unique ID of the staff practice",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Current email of the patient un the system",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
+        "requestBody": {
+          "description": "Updated patient info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Patient"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "response"
@@ -222,18 +264,18 @@
           }
         ]
       },
-      "post": {
+      "delete": {
         "tags": [
-          "Encounters"
+          "Patients"
         ],
-        "summary": "posts notes for an encounter",
-        "description": "Updates notes for a specific encounter\n",
-        "operationId": "updateSOAPNotes",
+        "summary": "deletes an existing patient",
+        "description": "Deletes an existing patient in the system\n",
+        "operationId": "deletePatient",
         "parameters": [
           {
-            "name": "id",
+            "name": "staff_id",
             "in": "query",
-            "description": "Unique ID of the encounter",
+            "description": "Unique ID of the staff member",
             "required": true,
             "style": "form",
             "explode": true,
@@ -242,43 +284,21 @@
             }
           },
           {
-            "name": "subjective",
+            "name": "practice_id",
             "in": "query",
-            "description": "Subjective notes of the encounter",
-            "required": false,
+            "description": "Unique ID of the staff practice",
+            "required": true,
             "style": "form",
             "explode": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           },
           {
-            "name": "objective",
+            "name": "email",
             "in": "query",
-            "description": "Objective notes of the encounter",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "assessment",
-            "in": "query",
-            "description": "Assessment notes of the encounter",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "plan",
-            "in": "query",
-            "description": "Plan notes of the encounter",
-            "required": false,
+            "description": "Email of the patient",
+            "required": true,
             "style": "form",
             "explode": true,
             "schema": {
@@ -287,7 +307,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "response"
           },
           "400": {
