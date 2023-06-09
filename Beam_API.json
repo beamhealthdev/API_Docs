@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Beam API",
-    "description": "Beam API",
+    "description": "Beam API Test",
     "contact": {
       "email": "aditya@beamhealthgroup.com"
     },
